@@ -7,11 +7,11 @@ function App() {
 
 	// 🐨 make a function called handleCheck that accepts a "tag" string and a "checked" boolean
 	// 🐨 By calling setQuery, add the tag to the query if checked and remove it if not
-	function handleCheck(tag: string, checked: boolean){
+	function handleCheck(tag: string, checked: boolean) {
 		if (checked) {
 			setQuery(query + ' ' + tag)
 		}else {
-			setQuery(query.replace(tag, ' ').trim())
+			setQuery(query.replace(tag, '').trim())
 		}
 	}
 	return (
@@ -23,7 +23,6 @@ function App() {
 						id="searchInput"
 						name="query"
 						type="search"
-						// 🐨 set the value prop to query
 						value={query}
 						onChange={e => setQuery(e.currentTarget.value)}
 					/>
@@ -32,24 +31,23 @@ function App() {
 					<label>
 						<input
 							type="checkbox"
-							// 🐨 add an onChange to call handleCheck with dog and event.currentTarget.checked
-							onChange={e => handleCheck('dog', e.currentTarget.checked)}
+							onChange={(e) => handleCheck('dog', e.currentTarget.checked)}
 						/>{' '}
 						🐶 dog
 					</label>
 					<label>
 						<input
 							type="checkbox"
-							// 🐨 add an onChange to call handleCheck with cat and event.currentTarget.checked
-							onChange={e => handleCheck('cat', e.currentTarget.checked)}
+							onChange={(e) => handleCheck('cat', e.currentTarget.checked)}
+							
 						/>{' '}
 						🐱 cat
 					</label>
 					<label>
 						<input
 							type="checkbox"
-							// 🐨 add an onChange to call handleCheck with caterpillar and event.currentTarget.checked
-							onChange={e => handleCheck('caterpillar', e.currentTarget.checked)}
+							onChange={(e) => handleCheck('caterpillar', e.currentTarget.checked)}
+							
 						/>{' '}
 						🐛 caterpillar
 					</label>
