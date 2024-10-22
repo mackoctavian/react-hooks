@@ -1,21 +1,23 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useId, useRef, useState } from 'react'
 import { createRoot } from 'react-dom/client'
 import VanillaTilt from 'vanilla-tilt'
 
 function Field({
 	label,
+	id,
 	...inputProps
 }: {
 	label: string
 } & React.ComponentProps<'input'>) {
-	// 🐨 create a generatedId using useId
-	// 🐨 create an id that defaults to inputProps.id and falls back to the generatedId
+
+	const generatedId = useId()
+	id ??= generatedId
 	return (
 		<div>
 			{/* 🐨 add htmlFor on the label and set it to the id */}
-			<label>{label}</label>
+			<label htmlFor={id}>{label}</label>
 			{/* 🐨 add an id prop here */}
-			<input {...inputProps} />
+			<input id={id} {...inputProps} />
 		</div>
 	)
 }
