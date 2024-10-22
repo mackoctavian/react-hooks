@@ -1,30 +1,30 @@
 import { useState } from 'react'
 import { createRoot } from 'react-dom/client'
 // 💰 you'll need this stuff:
-// import VanillaTilt from 'vanilla-tilt'
-//
-// interface HTMLVanillaTiltElement extends HTMLDivElement {
-// 	vanillaTilt?: VanillaTilt
-// }
-//
-// const vanillaTiltOptions = {
-// 	max: 25,
-// 	speed: 400,
-// 	glare: true,
-// 	'max-glare': 0.5,
-// }
+import VanillaTilt from 'vanilla-tilt'
+
+interface HTMLVanillaTiltElement extends HTMLDivElement {
+	vanillaTilt?: VanillaTilt
+}
+
+const vanillaTiltOptions = {
+	max: 25,
+	speed: 400,
+	glare: true,
+	'max-glare': 0.5,
+}
 
 function Tilt({ children }: { children: React.ReactNode }) {
 	return (
-		<div
+		<div 
 			className="tilt-root"
-			// 🐨 add a ref callback here
-			// the callback should accept a tiltNode parameter (🦺 typed as an
-			// HTMLVanillaTiltElement) and then:
-			// - if tiltNode is null, return
-			// - call VanillaTilt.init(tiltNode, vanillaTiltOptions)
-			// - return a cleanup function that will be called when element is removed
-			//   - call tiltNode.vanillaTilt?.destroy()
+			ref={(tiltNode: HTMLVanillaTiltElement | null) => {
+				if (!tiltNode) return
+
+				VanillaTilt.init(tiltNode, vanillaTiltOptions)
+
+				return () => tiltNode.vanillaTilt?.destroy()
+			}}
 		>
 			<div className="tilt-child">{children}</div>
 		</div>

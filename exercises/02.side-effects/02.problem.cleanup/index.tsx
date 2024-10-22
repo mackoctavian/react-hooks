@@ -24,14 +24,13 @@ function App() {
 		)
 
 		// 🐨 extract your event handler here into a function called updateQuery
-		window.addEventListener('popstate', () => {
-			// 🚨 this console.log forces the hugeData to hang around as long as the event listener is active
+		const updateQuery = () => {
 			console.log(hugeData)
-
-			console.log('popstate event listener called')
-			setQuery(getQueryParam())
-		})
+			setQuery(getQueryParam)
+		}
+		window.addEventListener('popstate', updateQuery)
 		// 🐨 return a function which removes the popstate event listener
+		return window.removeEventListener('popstate', updateQuery)
 		// 📜 https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/removeEventListener
 	}, [])
 

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { Dispatch, SetStateAction, useEffect, useState } from 'react'
 import { createRoot } from 'react-dom/client'
 import {
 	type BlogPost,
@@ -13,29 +13,9 @@ function getQueryParam() {
 }
 
 function App() {
-	// 🐨 add the useState for the query here (lift it up from the Form)
-	return (
-		<div className="app">
-			{/* 🐨 pass the query and setQuery to the form */}
-			<Form />
-			{/* 🐨 pass the query to this prop */}
-			<MatchingPosts query="" />
-		</div>
-	)
-}
-
-// 🐨 update the Form props to accept query and setQuery
-function Form() {
-	// 🐨 lift this up to the App
+	
 	const [query, setQuery] = useState(getQueryParam)
 
-	const words = query.split(' ').map(w => w.trim())
-
-	const dogChecked = words.includes('dog')
-	const catChecked = words.includes('cat')
-	const caterpillarChecked = words.includes('caterpillar')
-
-	// 🐨 move this up to the App as well
 	useEffect(() => {
 		const updateQuery = () => setQuery(getQueryParam())
 		window.addEventListener('popstate', updateQuery)
@@ -43,6 +23,32 @@ function Form() {
 			window.removeEventListener('popstate', updateQuery)
 		}
 	}, [])
+	return (
+		<div className="app">
+			
+			<Form query={query}
+			setQuery={setQuery}/>
+			<MatchingPosts query={query} />
+		</div>
+	)
+}
+
+
+type FormProps = {
+	query: string
+	setQuery: React.Dispatch<React.SetStateAction<string>>
+}
+function Form({query, setQuery}: FormProps) {
+	
+
+	const words = query.split(' ').map(w => w.trim())
+
+	const dogChecked = words.includes('dog')
+	const catChecked = words.includes('cat')
+	const caterpillarChecked = words.includes('caterpillar')
+
+
+	
 
 	function handleCheck(tag: string, checked: boolean) {
 		const newWords = checked ? [...words, tag] : words.filter(w => w !== tag)
